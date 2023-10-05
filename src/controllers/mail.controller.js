@@ -1,43 +1,54 @@
 import nodemailer from 'nodemailer'
 
-//env
-import dotenv from 'dotenv';// para cargar las variables de entorno desde el archivo .env
-dotenv.config(); // para cargar las variables de entorno desde el archivo .env
-
+import { Email, Gmail } from '../config/config.js';
 
 async function mainMail(name, email, subject, message) {
 
     // CPANEL
     // const transporter = await nodemailer.createTransport({
-    //     host: process.env.HOST,
-    //     port: process.env.PORT,
+    //     host: Email.emailHost,
+    //     // port: Email.emailPort,
     //     secure: false,
     //     auth: {
-    //         user: process.env.EMAIL_USER,
-    //         PASS: process.env.PASS
+    //         user: Email.emailUser,
+    //         pass: Email.emailPassword,
     //     },
     //     tls: {
-    //         rejectUnauthorized: false
-    //     }
+    //         rejectUnauthorized: false,
+    //     },
     // });
+
+    // const mailOption = {
+    //     from: Email.emailUser,
+    //     to: Email.emailUser,
+    //     subject: subject,
+    //     html:
+    //         `
+    //         <b>You got a message from</b>
+    //         <br/><br/>
+    //         <h3> Email : ${email} </h3> <br/>
+    //         <h2> Name: ${name} </h2> <br/>
+    //         <p> Message: ${message} </p> <br/>
+    //         `,
+    // };
 
     // Google GMAIL
     const transporter = await nodemailer.createTransport({
         service: 'gmail',
         auth: {
             type: 'OAuth2',
-            user: process.env.MAIL_USERNAME,
-            pass: process.env.MAIL_PASSWORD,
-            clientId: process.env.OAUTH_CLIENTID,
-            clientSecret: process.env.OAUTH_CLIENT_SECRET,
-            accessToken: process.env.OAUTH_ACCESS_TOKEN,
-            refreshToken: process.env.OAUTH_REFRESH_TOKEN
-        }
+            user: Gmail.gmailUser,
+            pass: Gmail.gmailPassword,
+            clientId: Gmail.gmailClientId,
+            clientSecret: Gmail.gmailClientSecret,
+            accessToken: Gmail.gmailAccessToken,
+            refreshToken: Gmail.gmailRefreshToken,
+        },
     });
 
     const mailOption = {
-        from: process.env.MAIL_USERNAME,
-        to: process.env.MAIL_USERNAME,
+        from: Gmail.gmailUser,
+        to: Gmail.gmailUser,
         subject: subject,
         html:
             `
@@ -64,7 +75,7 @@ export async function contact(req, res, next) {
 
         await mainMail(yourname, youremail, yoursubject, yourmessage);
 
-        console.log(req.body);
+        // console.log(req.body);
 
         res.send("Message Successfully Sent!");
     } catch (error) {
