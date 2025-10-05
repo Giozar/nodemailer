@@ -1,63 +1,102 @@
 # E-MAIL SERVICE
 ***
 ## Description
-service for sending messages, forms, etc. to e-mail addresses
+A simple and flexible Node.js service for sending messages, forms, and notifications to email addresses.  
+Supports **Gmail** and **cPanel mail servers** via **Nodemailer**.
+
+---
 
 ## Table of Contents
-1. [General Info](#general-info)
+1. [General Information](#general-information)
 2. [Technologies](#technologies)
 3. [Installation](#installation)
-4. [Collaboration](#collaboration)
-5. [FAQs](#faqs)
-### General Info
-***
+4. [Environment Configuration](#environment-configuration)
+5. [Usage Notes](#usage-notes)
+6. [Collaboration](#collaboration)
+7. [FAQs](#faqs)
+8. [Contact](#contact)
+
+---
+
+## General Information
+This project provides an email-sending service using **Nodemailer**.  
+It allows integration with various email providers (e.g., Gmail, cPanel) through environment variables and OAuth2 credentials.  
+You can easily integrate it with forms or backend systems that require email notifications.
+
+---
 
 ## Technologies
-***
-A list of technologies used within the project:
-* [NODEJS]
-* [EXPRESS]
-* [NODEMAILER]
-* [dotenv]
-* [morgan]
+Technologies used in this project:
+- [Node.js](https://nodejs.org)
+- [Express.js](https://expressjs.com)
+- [Nodemailer](https://nodemailer.com)
+- [dotenv](https://www.npmjs.com/package/dotenv)
+- [morgan](https://www.npmjs.com/package/morgan)
+
+---
 
 ## Installation
-***
-A little intro about the installation. 
+Clone the repository and install dependencies:
+```bash
+git clone https://github.com/Giozar/nodemailer.git
+cd nodemailer
+pnpm install
+pnpm run dev
 ```
-$ git clone https://github.com/Giozar/nodemailer.git
-$ pnpm install
-$ pnpm run dev
+
+Tip: To run the project in a specific environment, configure your `.env` file as described below.
+
+---
+
+## Environment Configuration
+
+1. **Create a `.env` file** in the root of your project.  
+   Depending on the email provider, use the following credentials:
+
+### cPanel Email Configuration
+```bash
+EMAIL_USER=user@domain.com
+EMAIL_PASSWORD=password123
+EMAIL_PORT=587
+EMAIL_HOST=mail.domain.com
+EMAIL=user@domain.com
 ```
-Side information: To use the application in a special environment use ```lorem ipsum``` to start
+
+### Gmail Configuration
+```bash
+GMAIL_USERNAME=user@gmail.com
+GMAIL_PASSWORD=password123
+```
+
+To use OAuth2 with Gmail:
+- Go to the **Google Cloud Console** → **APIs & Services** → enable **Gmail API**.
+- Create OAuth credentials (Client ID and Client Secret).
+
+Then add:
+```bash
+OAUTH_CLIENTID=your_client_id
+OAUTH_CLIENT_SECRET=your_client_secret
+OAUTH_ACCESS_TOKEN=your_access_token
+OAUTH_REFRESH_TOKEN=your_refresh_token
+```
+
+You can generate the last two tokens using [Google OAuth Playground](https://developers.google.com/oauthplayground).
+
+---
+
+## Usage Notes
+- Uncomment and configure the required code lines in `controllers/mail.controller.js` depending on your chosen provider.  
+- Make sure your `.env` file matches the configuration for that provider.  
+- Restart your development server after editing `.env`.
+
+---
+
 ## Collaboration
-***
-- Giozar
+Developed and maintained by **Giozar**.  
+Contributions and feedback are welcome!  
 
-1. **.env file**: Create an .env file in your project's root and depending on what services you are going to use, enter the necessary credentials.
+---
 
-2. **Credentials for the .env file**: 
-
-###### CPANEL Email environment variables <br>
-EMAIL_USER='user@domain.com' <br>
-EMAIL_PASSWORD='password123 <br>
-EMAIL_PORT=587 <br>
-EMAIL_HOST="mail.domain.com" <br>
-EMAIL='user@domain.com' <br>
-
-
-###### GMAIL environment variables <br>
-GMAIL_USERNAME="user@gmail.com" <br>
-GMAIL_PASSWORD="password123" <br>
-
-to get this data from gmail you create a google cloud account and then to get the last two credentials you go to https://developers.google.com/oauthplayground <br> \ \
-
-OAUTH_CLIENTID="" <br>
-OAUTH_CLIENT_SECRET="" <br>
-OAUTH_ACCESS_TOKEN="" <br>
-OAUTH_REFRESH_TOKEN="" <br>
-
-3. **Comments**: You uncomment the lines of code to be used in controllers/mail.js.
-
-## If you need help you can contact me.
-
+## Contact
+If you need help or want to collaborate, feel free to contact me:  
+**Author:** [Giozar](https://github.com/Giozar)
